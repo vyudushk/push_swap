@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/31 10:40:07 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/29 15:37:03 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/04 20:09:53 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ char				*ft_strrev(char	*str);
 # define BUFF_SIZE 100
 
 int					get_next_line(const int fd, char **line);
+int					ft_printf(char const *input, ...);
 
 #endif
