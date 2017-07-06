@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 19:43:29 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/04 22:47:41 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/05 23:59:23 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,37 @@ void	print_lst(t_list *lst)
 	ft_putchar('\n');
 }
 
+int		isnumeric(char *str)
+{
+	while (*str)
+	{
+		if (*str > '9' || *str < '0')
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
+void	leave(void)
+{
+	ft_putstr("Error\n");
+	exit(0);
+}
+
+int		isduplicate(t_list *lst, int check)
+{
+	int	*i;
+
+	while (lst)
+	{
+		i = lst->content;
+		if (check == *i)
+			return (1);
+		lst = lst->next;
+	}
+	return (0);
+}
+
 t_list	*arg_to_lst(int argc, char **argv)
 {
 	int		i;
@@ -29,21 +60,45 @@ t_list	*arg_to_lst(int argc, char **argv)
 	t_list	*lst;
 
 	i = 1;
+	if (argc == 1)
+		exit(0);
 	tmp = 0;
 	lst = 0;
 	while (i < argc)
 	{
 		tmp = ft_atoi(argv[i]);
+		if (isnumeric(argv[i]) == 0 || isduplicate(lst, tmp)
+				|| ft_atol(argv[i]) > 2147483647)
+			leave();
 		ft_lstadd(&lst, ft_lstnew(&tmp, sizeof(int)));
 		i++;
 	}
 	return (lst);
 }
 
-int	main(int argc, char **argv)
+int		isvalid(char *str)
+{
+	if (ft_strcmp(str, "sa") == 0 || ft_strcmp(str, "sb") == 0
+	|| ft_strcmp(str, "ss") == 0 || ft_strcmp(str, "pa") == 0
+	|| ft_strcmp(str, "pb") == 0 || ft_strcmp(str, "ra") == 0
+	|| ft_strcmp(str, "rb") == 0 || ft_strcmp(str, "rr") == 0
+	|| ft_strcmp(str, "rra") == 0 || ft_strcmp(str, "rrb") == 0
+	|| ft_strcmp(str, "rrr") == 0)
+		return (1);
+	return (0);
+}
+
+int		main(int argc, char **argv)
 {
 	t_list	*lst;
+	char	*line;
 
 	lst = arg_to_lst(argc, argv);
-	ft_lstiter(lst, print_lst);
+	//ft_lstiter(lst, print_lst);
+	while (get_next_line(0, &line))
+	{
+		if (isvalid(line) == 0)
+			leave();
+		free(line);
+	}
 }
