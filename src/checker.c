@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 19:43:29 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/05 23:59:23 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/06 21:41:36 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	print_lst(t_list *lst)
 
 int		isnumeric(char *str)
 {
+	if (*str == '-')
+		str++;
 	while (*str)
 	{
 		if (*str > '9' || *str < '0')
@@ -94,7 +96,7 @@ int		main(int argc, char **argv)
 	char	*line;
 
 	lst = arg_to_lst(argc, argv);
-	//ft_lstiter(lst, print_lst);
+	ft_lstiter(lst, print_lst);
 	while (get_next_line(0, &line))
 	{
 		if (isvalid(line) == 0)
