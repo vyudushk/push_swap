@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 19:43:29 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/06 21:41:36 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/06 22:06:18 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_list	*arg_to_lst(int argc, char **argv)
 		if (isnumeric(argv[i]) == 0 || isduplicate(lst, tmp)
 				|| ft_atol(argv[i]) > 2147483647)
 			leave();
-		ft_lstadd(&lst, ft_lstnew(&tmp, sizeof(int)));
+		ft_lstaddend(&lst, ft_lstnew(&tmp, sizeof(int)));
 		i++;
 	}
 	return (lst);
