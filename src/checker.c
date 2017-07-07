@@ -6,12 +6,25 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 19:43:29 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/07 02:06:10 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/07 03:49:09 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
+
+int		ft_lstlen(t_list *lst)
+{
+	int	i;
+
+	i = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}
 
 void	print_lst(t_list *lst)
 {
@@ -90,11 +103,16 @@ int		isvalid(char *str)
 	return (0);
 }
 
-void	is_sort(t_list *lst)
+void	is_sort(t_list *lst, int len)
 {
 	int	*i;
 	int	*next;
 
+	if (ft_lstlen(lst) != len)
+	{
+		ft_putstr("KO\n");
+		exit(0);
+	}
 	while (lst)
 	{
 		i = lst->content;
@@ -119,7 +137,7 @@ void	swap(t_list **stack)
 	t_list	*fir;
 	t_list	*sec;
 
-	if (!*stack)
+	if (!*stack && (*stack)->next)
 		return ;
 	fir = *stack;
 	sec = (*stack)->next;
@@ -206,29 +224,37 @@ void	operate(char *cmd, t_list **astk, t_list **bstk)
 	}
 }
 
+void	debug(t_list *lst, t_list *stack)
+{
+	ft_putnbr(ft_lstlen(lst));
+	ft_putstr(" A : ");
+	ft_lstiter(lst, print_lst);
+	ft_putchar('\n');
+	ft_putnbr(ft_lstlen(stack));
+	ft_putstr(" B : ");
+	ft_lstiter(stack, print_lst);
+	ft_putchar('\n');
+}
+
 int		main(int argc, char **argv)
 {
 	t_list	*lst;
 	t_list	*stack;
 	char	*line;
+	int		len;
 
 	lst = arg_to_lst(argc, argv);
 	stack = 0;
-	ft_lstiter(lst, print_lst);
-	ft_putchar('\n');
+	debug(lst, stack);
+	len = ft_lstlen(lst);
 	while (get_next_line(0, &line))
 	{
 		if (isvalid(line) == 0)
 			leave();
 		operate(line, &lst, &stack);
-		ft_putstr("A : ");
-		ft_lstiter(lst, print_lst);
-		ft_putchar('\n');
-		ft_putstr("B : ");
-		ft_lstiter(stack, print_lst);
-		ft_putchar('\n');
+		debug(lst, stack);
 		free(line);
 	}
 	//handle the actual operations
-	is_sort(lst);
+	is_sort(lst, len);
 }
