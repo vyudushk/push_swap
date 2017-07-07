@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 19:43:29 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/07 02:00:40 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/07 02:06:10 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,10 +144,13 @@ void	rotate(t_list **stack)
 {
 	t_list	*hold;
 
-	hold = *stack;
-	*stack = (*stack)->next;
-	hold->next = NULL;
-	ft_lstaddend(stack, hold);
+	if (*stack && (*stack)->next)
+	{
+		hold = *stack;
+		*stack = (*stack)->next;
+		hold->next = NULL;
+		ft_lstaddend(stack, hold);
+	}
 }
 
 void	rev_rotate(t_list **stack)
@@ -155,14 +158,17 @@ void	rev_rotate(t_list **stack)
 	t_list	*hold;
 	t_list	*start;
 
-	hold = *stack;
-	start = *stack;
-	while (hold->next)
-		hold = hold->next;
-	ft_lstadd(stack, hold);
-	while (start->next != hold)
-		start = start->next;
-	start->next = NULL;
+	if (*stack && (*stack)->next)
+	{
+		hold = *stack;
+		start = *stack;
+		while (hold->next)
+			hold = hold->next;
+		ft_lstadd(stack, hold);
+		while (start->next != hold)
+			start = start->next;
+		start->next = NULL;
+	}
 }
 
 void	operate(char *cmd, t_list **astk, t_list **bstk)
