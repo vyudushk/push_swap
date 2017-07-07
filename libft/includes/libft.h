@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/31 10:40:07 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/06 22:06:08 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/07 05:51:52 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstaddend(t_list **head, t_list *new);
+int					ft_lstlen(t_list *lst);
 
 int					ft_isupper(int	c);
 int					ft_islower(int	c);

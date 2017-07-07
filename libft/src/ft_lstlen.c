@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libpush.h                                          :+:      :+:    :+:   */
+/*   ft_lstlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/03 01:33:32 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/07 06:14:25 by vyudushk         ###   ########.fr       */
+/*   Created: 2017/07/07 05:51:11 by vyudushk          #+#    #+#             */
+/*   Updated: 2017/07/07 05:51:26 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBPUSH_H
-# define LIBPUSH_H
+#include "libft.h"
 
-# include "libft.h"
+int		ft_lstlen(t_list *lst)
+{
+	int	i;
 
-void	operate(char *cmd, t_list **astk, t_list **bstk);
+	i = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}
 
-int		isnumeric(char *str);
-int		isduplicate(t_list *lst, int check);
-int		isvalid(char *str);
-
-void	leave(void);
-void	print_lst(t_list *lst);
-void	debug(t_list *lst, t_list *stack);
-
-#endif

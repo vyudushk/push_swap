@@ -7,7 +7,7 @@ CC			= gcc
 FLAGS		= -Wall -Werror -Wextra
 
 FILENAMES1	= push_swap.c 
-FILENAMES2	= checker.c
+FILENAMES2	= checker.c operations.c condition.c helper.c
 
 SRC1		= $(addprefix src/, $(FILENAMES1))
 SRC2		= $(addprefix src/, $(FILENAMES2))
