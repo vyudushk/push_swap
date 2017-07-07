@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 19:43:29 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/06 23:25:19 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/06 23:44:26 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,17 +114,46 @@ void	is_sort(t_list *lst)
 	}
 }
 
+void	swap(t_list **stack)
+{
+	t_list	*fir;
+	t_list	*sec;
+
+	fir = *stack;
+	sec = (*stack)->next;
+	fir->next = sec->next;
+	sec->next = fir;
+	*stack = sec;
+}
+
+void	operate(char *cmd, t_list **astk, t_list **bstk)
+{
+	if (ft_strcmp(cmd, "sa") && *astk)
+		swap(astk);
+	if (ft_strcmp(cmd, "sb") && *bstk)
+		swap(bstk);
+	if (ft_strcmp(cmd, "ss") && *astk && *bstk)
+	{
+		swap(astk);
+		swap(bstk);
+	}
+}
+
 int		main(int argc, char **argv)
 {
 	t_list	*lst;
+	t_list	*stack;
 	char	*line;
 
 	lst = arg_to_lst(argc, argv);
+	stack = 0;
 	ft_lstiter(lst, print_lst);
 	while (get_next_line(0, &line))
 	{
 		if (isvalid(line) == 0)
 			leave();
+		operate(line, &lst, &stack);
+		ft_lstiter(lst, print_lst);
 		free(line);
 	}
 	//handle the actual operations
