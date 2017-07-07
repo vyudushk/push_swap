@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 19:43:29 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/06 22:06:18 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/06 23:25:19 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_list	*arg_to_lst(int argc, char **argv)
 	{
 		tmp = ft_atoi(argv[i]);
 		if (isnumeric(argv[i]) == 0 || isduplicate(lst, tmp)
-				|| ft_atol(argv[i]) > 2147483647)
+		|| ft_atol(argv[i]) > 2147483647 || ft_atol(argv[i]) < -2147483648)
 			leave();
 		ft_lstaddend(&lst, ft_lstnew(&tmp, sizeof(int)));
 		i++;
@@ -90,6 +90,30 @@ int		isvalid(char *str)
 	return (0);
 }
 
+void	is_sort(t_list *lst)
+{
+	int	*i;
+	int	*next;
+
+	while (lst)
+	{
+		i = lst->content;
+		if (lst->next)
+			next = lst->next->content;
+		else
+		{
+			ft_putstr("OK\n");
+			exit(0);
+		}
+		if (*i > *next)
+		{
+			ft_putstr("KO\n");
+			exit(0);
+		}
+		lst = lst->next;
+	}
+}
+
 int		main(int argc, char **argv)
 {
 	t_list	*lst;
@@ -103,4 +127,6 @@ int		main(int argc, char **argv)
 			leave();
 		free(line);
 	}
+	//handle the actual operations
+	is_sort(lst);
 }
