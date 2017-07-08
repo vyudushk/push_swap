@@ -6,7 +6,7 @@ LIBFT		= libft/includes
 CC			= gcc
 FLAGS		= -Wall -Werror -Wextra
 
-FILENAMES1	= push_swap.c 
+FILENAMES1	= push_swap.c condition.c helper.c operations.c
 FILENAMES2	= checker.c operations.c condition.c helper.c
 
 SRC1		= $(addprefix src/, $(FILENAMES1))
@@ -23,7 +23,7 @@ OBJ			= $(OBJ2)
 all : build libft $(NAME1) $(NAME2)
 
 build/%.o: src/%.c
-	$(CC) $(FLAGS) -I $(LIBFT) -I inc -c $< -o $@
+	$(CC) -g $(FLAGS) -I $(LIBFT) -I inc -c $< -o $@
 
 $(NAME1): $(OBJ1)
 	$(CC) $(OBJ1) -I $(LIBFT) libft/libft.a -I inc -o $(NAME1)
