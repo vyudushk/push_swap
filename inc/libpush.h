@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/03 01:33:32 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/07 06:14:25 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/24 15:56:57 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ int		isvalid(char *str);
 void	leave(void);
 void	print_lst(t_list *lst);
 void	debug(t_list *lst, t_list *stack);
+
+t_list	*arg_to_lst(int argc, char **argv);
 
 #endif

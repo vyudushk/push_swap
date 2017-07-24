@@ -6,8 +6,8 @@ LIBFT		= libft/includes
 CC			= gcc
 FLAGS		= -Wall -Werror -Wextra
 
-FILENAMES1	= push_swap.c condition.c helper.c operations.c
-FILENAMES2	= checker.c operations.c condition.c helper.c
+FILENAMES1	= push_swap.c condition.c helper.c operations.c arg_to_lst.c
+FILENAMES2	= checker.c operations.c condition.c helper.c arg_to_lst.c
 
 SRC1		= $(addprefix src/, $(FILENAMES1))
 SRC2		= $(addprefix src/, $(FILENAMES2))
