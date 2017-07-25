@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/07 04:11:24 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/07 04:14:37 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/24 18:49:54 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,35 +71,20 @@ void	rev_rotate(t_list **stack)
 
 void	operate(char *cmd, t_list **astk, t_list **bstk)
 {
-	if (ft_strcmp(cmd, "sa") == 0)
+	if (ft_strcmp(cmd, "sa") == 0 || ft_strcmp(cmd, "ss") == 0)
 		swap(astk);
-	if (ft_strcmp(cmd, "sb") == 0)
+	if (ft_strcmp(cmd, "sb") == 0 || ft_strcmp(cmd, "ss") == 0)
 		swap(bstk);
-	if (ft_strcmp(cmd, "ss") == 0)
-	{
-		swap(astk);
-		swap(bstk);
-	}
 	if (ft_strcmp(cmd, "pa") == 0)
 		push(bstk, astk);
 	if (ft_strcmp(cmd, "pb") == 0)
 		push(astk, bstk);
-	if (ft_strcmp(cmd, "ra") == 0)
+	if (ft_strcmp(cmd, "ra") == 0 || ft_strcmp(cmd, "rr") == 0)
 		rotate(astk);
-	if (ft_strcmp(cmd, "rb") == 0)
+	if (ft_strcmp(cmd, "rb") == 0 || ft_strcmp(cmd, "rr") == 0)
 		rotate(bstk);
-	if (ft_strcmp(cmd, "rr") == 0)
-	{
-		rotate(astk);
-		rotate(bstk);
-	}
-	if (ft_strcmp(cmd, "rra") == 0)
+	if (ft_strcmp(cmd, "rra") == 0 || ft_strcmp(cmd, "rrr") == 0)
 		rev_rotate(astk);
-	if (ft_strcmp(cmd, "rrb") == 0)
+	if (ft_strcmp(cmd, "rrb") == 0 || ft_strcmp(cmd, "rrr") == 0)
 		rev_rotate(bstk);
-	if (ft_strcmp(cmd, "rrr") == 0)
-	{
-		rev_rotate(astk);
-		rev_rotate(bstk);
-	}
 }

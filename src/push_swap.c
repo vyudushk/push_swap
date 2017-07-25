@@ -6,13 +6,19 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 19:43:29 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/24 17:29:47 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/24 19:09:24 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "libpush.h"
 #include <stdlib.h>
+
+void	poperate(char *cmd, t_list **astk, t_list **bstk)
+{
+	operate(cmd, astk, bstk);
+	ft_putendl(cmd);
+}
 
 int		is_sort(t_list *lst)
 {
@@ -31,32 +37,6 @@ int		is_sort(t_list *lst)
 	return (1);
 }
 
-t_list	*copy_lst(t_list *input)
-{
-	t_list *ret;
-
-	ret = ft_lstnew(input->content, input->content_size);
-	return (ret);
-}
-
-int		find_smallest(t_list *input)
-{
-	int		*i;
-	int		*hold;
-	t_list	*stk;
-
-	stk = ft_lstmap(input, copy_lst);
-	i = stk->content;
-	while (stk)
-	{
-		hold = stk->content;
-		if (*hold < *i)
-			*i = *hold;
-		stk = stk->next;
-	}
-	return (*i);
-}
-
 int		peek(t_list *stk)
 {
 	int	*i;
@@ -65,36 +45,58 @@ int		peek(t_list *stk)
 	return (*i);
 }
 
+int		find_smallest(t_list *stk)
+{
+	int		i;
+	int		hold;
+	i = peek(stk);
+	while (stk)
+	{
+		hold = peek(stk);
+		if (hold < i)
+			i = hold;
+		stk = stk->next;
+	}
+	return (i);
+}
+
+int		position(int i, t_list *stk)
+{
+	int	ret;
+
+	ret = 0;
+	while (stk)
+	{
+		if (peek(stk) == i)
+			return (ret);
+		stk = stk->next;
+		ret++;
+	}
+	return (ret);
+}
+
 void	sort(t_list *astk)
 {
 	t_list	*bstk;
-	int		len;
 	int		small;
 	int		hold;
 
-	len = ft_lstlen(astk);
 	bstk = 0;
-	while (ft_lstlen(bstk) < len)
+	while (is_sort(astk) == 0)
 	{
 		hold = peek(astk);
 		small = find_smallest(astk);
 		if (hold == small)
-		{
-			operate("pb", &astk, &bstk);
-			ft_putstr("pb\n");
-		}
-		else
-		{
-			operate("ra", &astk, &bstk);
-			ft_putstr("ra\n");
-		}
+			poperate("pb", &astk, &bstk);
+		else if (peek(astk) > peek(astk->next))
+			poperate("sa", &astk, &bstk);
+		else if (position(small, astk) <= ft_lstlen(astk) / 2)
+			poperate("ra", &astk, &bstk);
+		else if (position(small, astk) > ft_lstlen(astk) / 2)
+			poperate("rra", &astk, &bstk);
 	}
-	while (len)
-	{
-		operate("pa", &astk, &bstk);
-		ft_putstr("pa\n");
-		len--;
-	}
+	while (ft_lstlen(bstk))
+		poperate("pa", &astk, &bstk);
 }
 
 int	main(int argc, char **argv)
