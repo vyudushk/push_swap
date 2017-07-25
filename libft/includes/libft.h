@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/31 10:40:07 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/07 05:51:52 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/24 18:08:10 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstaddend(t_list **head, t_list *new);
 int					ft_lstlen(t_list *lst);
+void   				del(void *point, size_t n);
 
 int					ft_isupper(int	c);
 int					ft_islower(int	c);
