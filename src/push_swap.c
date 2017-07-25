@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 19:43:29 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/24 16:16:46 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/24 17:29:47 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,21 @@ int		is_sort(t_list *lst)
 	return (1);
 }
 
-int		find_smallest(t_list *stk)
+t_list	*copy_lst(t_list *input)
 {
-	int	*i;
-	int	*hold;
+	t_list *ret;
 
+	ret = ft_lstnew(input->content, input->content_size);
+	return (ret);
+}
+
+int		find_smallest(t_list *input)
+{
+	int		*i;
+	int		*hold;
+	t_list	*stk;
+
+	stk = ft_lstmap(input, copy_lst);
 	i = stk->content;
 	while (stk)
 	{
@@ -47,20 +57,28 @@ int		find_smallest(t_list *stk)
 	return (*i);
 }
 
+int		peek(t_list *stk)
+{
+	int	*i;
+
+	i = stk->content;
+	return (*i);
+}
+
 void	sort(t_list *astk)
 {
 	t_list	*bstk;
 	int		len;
 	int		small;
-	int		*hold;
+	int		hold;
 
 	len = ft_lstlen(astk);
 	bstk = 0;
 	while (ft_lstlen(bstk) < len)
 	{
+		hold = peek(astk);
 		small = find_smallest(astk);
-		hold = astk->content;
-		if (*hold == small)
+		if (hold == small)
 		{
 			operate("pb", &astk, &bstk);
 			ft_putstr("pb\n");
