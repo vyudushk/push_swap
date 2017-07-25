@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/24 15:57:41 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/24 15:59:24 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/24 17:38:41 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ t_list	*str_to_lst(char *str)
 		while (*str == ' ')
 			str++;
 	}
+	if (ft_lstlen(lst) == 1)
+		exit(0);
 	return (lst);
 }
 
