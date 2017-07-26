@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 19:43:29 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/25 19:03:48 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/25 19:19:53 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,8 @@ void	sort(t_list *astk)
 	int		small;
 	int		big;
 	int		hold;
-	int		len;
 
 	bstk = 0;
-	len = ft_lstlen(astk);
 	while (is_sort(astk) == 0)
 	{
 		hold = peek(astk);
