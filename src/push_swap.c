@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 19:43:29 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/24 19:09:24 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/25 19:03:48 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,21 @@ int		find_smallest(t_list *stk)
 	return (i);
 }
 
+int		find_biggest(t_list *stk)
+{
+	int		i;
+	int		hold;
+	i = peek(stk);
+	while (stk)
+	{
+		hold = peek(stk);
+		if (hold > i)
+			i = hold;
+		stk = stk->next;
+	}
+	return (i);
+}
+
 int		position(int i, t_list *stk)
 {
 	int	ret;
@@ -79,16 +94,22 @@ void	sort(t_list *astk)
 {
 	t_list	*bstk;
 	int		small;
+	int		big;
 	int		hold;
+	int		len;
 
 	bstk = 0;
+	len = ft_lstlen(astk);
 	while (is_sort(astk) == 0)
 	{
 		hold = peek(astk);
 		small = find_smallest(astk);
+		big = find_biggest(astk);
 		if (hold == small)
 			poperate("pb", &astk, &bstk);
-		else if (peek(astk) > peek(astk->next))
+		else if (hold == big && ft_lstlen(astk) > 1)
+			poperate("ra", &astk, &bstk);
+		else if ((peek(astk) > peek(astk->next)))
 			poperate("sa", &astk, &bstk);
 		else if (position(small, astk) <= ft_lstlen(astk) / 2)
 			poperate("ra", &astk, &bstk);
