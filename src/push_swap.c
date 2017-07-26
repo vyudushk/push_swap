@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 19:43:29 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/25 19:19:53 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/26 14:52:33 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +105,14 @@ void	sort(t_list *astk)
 		big = find_biggest(astk);
 		if (hold == small)
 			poperate("pb", &astk, &bstk);
+		else if (position(small, astk) > ft_lstlen(astk) / 2)
+			poperate("rra", &astk, &bstk);
 		else if (hold == big && ft_lstlen(astk) > 1)
 			poperate("ra", &astk, &bstk);
 		else if ((peek(astk) > peek(astk->next)))
 			poperate("sa", &astk, &bstk);
 		else if (position(small, astk) <= ft_lstlen(astk) / 2)
 			poperate("ra", &astk, &bstk);
-		else if (position(small, astk) > ft_lstlen(astk) / 2)
-			poperate("rra", &astk, &bstk);
 	}
 	while (ft_lstlen(bstk))
 		poperate("pa", &astk, &bstk);
