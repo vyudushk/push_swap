@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 19:43:29 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/26 14:52:33 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/26 18:49:52 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,12 @@ int		position(int i, t_list *stk)
 	return (ret);
 }
 
-void	sort(t_list *astk)
+void	sort_10(t_list *astk)
 {
 	t_list	*bstk;
+	int		hold;
 	int		small;
 	int		big;
-	int		hold;
 
 	bstk = 0;
 	while (is_sort(astk) == 0)
@@ -118,6 +118,30 @@ void	sort(t_list *astk)
 		poperate("pa", &astk, &bstk);
 }
 
+void	sort_big(t_list *astk)
+{
+	t_list	*bstk;
+	int		hold;
+	int		small;
+	int		big;
+
+	bstk = 0;
+	while (is_sort(astk) == 0)
+	{
+		hold = peek(astk);
+		small = find_smallest(astk);
+		big = find_biggest(astk);
+	}
+}
+
+void	pick_sort(t_list *astk)
+{
+	if (ft_lstlen(astk) < 50)
+		sort_10(astk);
+	else
+		sort_10(astk);
+}
+
 int	main(int argc, char **argv)
 {
 	t_list	*lst;
@@ -126,5 +150,5 @@ int	main(int argc, char **argv)
 	if (is_sort(lst))
 		return (0);
 	//do the sorting
-	sort(lst);
+	pick_sort(lst);
 }
