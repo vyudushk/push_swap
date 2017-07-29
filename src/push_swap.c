@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 19:43:29 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/26 18:49:52 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/07/28 17:11:46 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int		find_smallest(t_list *stk)
 {
 	int		i;
 	int		hold;
+
 	i = peek(stk);
 	while (stk)
 	{
@@ -64,6 +65,7 @@ int		find_biggest(t_list *stk)
 {
 	int		i;
 	int		hold;
+
 	i = peek(stk);
 	while (stk)
 	{
@@ -118,28 +120,69 @@ void	sort_10(t_list *astk)
 		poperate("pa", &astk, &bstk);
 }
 
+void	int_swap(int *a, int *b)
+{
+	int	hold;
+
+	hold = *a;
+	*a = *b;
+	*b = hold;
+}
+
+int		find_fit_end(int big, int small, t_list *stk)
+{
+	if (small < peek(stk) && peek(stk) < big)
+		return (1);
+	if (stk->next)
+		return (find_fit_end(big, small, stk->next) + 1);
+	return (0);
+}
+
+int		find_fit(int big, int small, t_list *stk)
+{
+	int	ret;
+
+	ret = 0;
+	while (stk)
+	{
+		if (small < peek(stk) && peek(stk) < big)
+			return (ret);
+		stk = stk->next;
+		ret++;
+	}
+	return (ret);
+}
+
 void	sort_big(t_list *astk)
 {
 	t_list	*bstk;
-	int		hold;
 	int		small;
 	int		big;
 
 	bstk = 0;
+	poperate("pb", &astk, &bstk);
+	while (peek(astk) + 1 == peek(bstk) || peek(astk) - 1 == peek(bstk))
+		poperate("ra", &astk, &bstk);
+	poperate("pb", &astk, &bstk);
+	if (peek(bstk) != find_smallest(bstk))
+		poperate("rb", &astk, &bstk);
+	small = peek(bstk);
+	big = peek(bstk->next);
 	while (is_sort(astk) == 0)
 	{
-		hold = peek(astk);
-		small = find_smallest(astk);
-		big = find_biggest(astk);
+		if (small < peek(astk) && peek(astk) < big)
+			poperate("pb", &astk, &bstk);
+		if (find_fit(big, small, astk))
+			poperate("ra", &astk, &bstk);
 	}
 }
 
 void	pick_sort(t_list *astk)
 {
 	if (ft_lstlen(astk) < 50)
-		sort_10(astk);
+		sort_big(astk);
 	else
-		sort_10(astk);
+		sort_big(astk);
 }
 
 int	main(int argc, char **argv)
