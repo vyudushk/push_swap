@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/24 15:57:41 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/24 17:38:41 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/08/13 19:34:56 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		isnumeric_str(char *str)
 t_list	*str_to_lst(char *str)
 {
 	int		tmp;
-	t_list *lst;
+	t_list	*lst;
 
 	tmp = 0;
 	lst = 0;
@@ -75,4 +75,3 @@ t_list	*arg_to_lst(int argc, char **argv)
 	}
 	return (lst);
 }
-

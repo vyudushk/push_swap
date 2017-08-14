@@ -6,11 +6,28 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/07 05:54:13 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/07 06:01:25 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/08/13 19:41:56 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+int		is_sort_push(t_list *lst)
+{
+	int	*i;
+	int	*next;
+
+	while (lst)
+	{
+		i = lst->content;
+		if (lst->next)
+			next = lst->next->content;
+		if (*i > *next)
+			return (0);
+		lst = lst->next;
+	}
+	return (1);
+}
 
 int		isnumeric(char *str)
 {
