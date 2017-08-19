@@ -57,23 +57,41 @@ void	sort_10(t_list *astk)
 		poperate("pa", &astk, &bstk);
 }
 
+/*int		check_gap(t_list *stk)
+{
+	int	len;
+	//int	sum;
+
+	len = ft_lstlen(stk);
+}
+*/
 void	sort_big(t_list *astk)
 {
 	t_list	*bstk;
-	int		small;
-	int		big;
 
 	bstk = 0;
-	poperate("pb", &astk, &bstk);
-	while (peek(astk) + 1 == peek(bstk) || peek(astk) - 1 == peek(bstk))
-		poperate("ra", &astk, &bstk);
-	poperate("pb", &astk, &bstk);
-	if (peek(bstk) != find_smallest(bstk))
-		poperate("rb", &astk, &bstk);
-	small = peek(bstk);
-	big = peek(bstk->next);
 	while (is_sort_push(astk) == 0)
 	{
+		if (ft_lstlen(bstk) < 2)
+			poperate("pb", &astk, &bstk);
+		else if ((peek(astk) > peek(astk->next)) && (peek(bstk) < peek(bstk->next)))
+			poperate("ss", &astk, &bstk);
+		else if ((peek(astk) > peek(astk->next)))
+			poperate("sa", &astk, &bstk);
+		else if ((peek(bstk) < peek(bstk->next)))
+			poperate("sb", &astk, &bstk);
+		else if (peek(astk) < peek(bstk))
+			poperate("pb", &astk, &bstk);
+		else if (peek(astk) > peek(bstk))
+			poperate("ra", &astk, &bstk);
+		if (ft_lstlen(astk) == 10)
+			exit(0);
+	}
+	while (ft_lstlen(bstk))
+	{
+		poperate("pa", &astk, &bstk);
+		if (peek(astk) > peek(astk->next))
+			poperate("ra", &astk, &bstk);
 	}
 }
 
@@ -86,7 +104,7 @@ void	sort_big(t_list *astk)
 
 void	pick_sort(t_list *astk)
 {
-	sort_10(astk);
+	sort_big(astk);
 }
 
 int		main(int argc, char **argv)

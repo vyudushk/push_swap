@@ -54,4 +54,5 @@ void	debug(t_list *lst, t_list *stack)
 	ft_putstr(" B : ");
 	ft_lstiter(stack, print_lst);
 	ft_putchar('\n');
+	ft_putchar('\n');
 }
