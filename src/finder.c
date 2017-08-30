@@ -20,6 +20,13 @@ int		peek(t_list *stk)
 	return (*i);
 }
 
+int		peek_last(t_list *stk)
+{
+	while (stk->next)
+		stk = stk->next;
+	return (peek(stk));
+}
+
 int		find_biggest(t_list *stk)
 {
 	int		i;

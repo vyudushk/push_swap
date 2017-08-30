@@ -57,50 +57,47 @@ void	sort_10(t_list *astk)
 		poperate("pa", &astk, &bstk);
 }
 
-/*int		check_gap(t_list *stk)
+int		allbigger(t_list *stk, int b)
 {
-	int	len;
-	//int	sum;
-
-	len = ft_lstlen(stk);
+	while (stk)
+	{
+		if (peek(stk) < b)
+			return (0);
+		stk = stk->next;
+	}
+	return (1);
 }
-*/
+
+int		allsmaller(t_list *stk, int b)
+{
+	while (stk)
+	{
+		if (peek(stk) > b)
+			return (0);
+		stk = stk->next;
+	}
+	return (1);
+}
+
 void	sort_big(t_list *astk)
 {
 	t_list	*bstk;
+	int		small;
+	int		big;
 
 	bstk = 0;
-	while (is_sort_push(astk) == 0)
-	{
-		if (ft_lstlen(bstk) < 2)
-			poperate("pb", &astk, &bstk);
-		else if ((peek(astk) > peek(astk->next)) && (peek(bstk) < peek(bstk->next)))
-			poperate("ss", &astk, &bstk);
-		else if ((peek(astk) > peek(astk->next)))
-			poperate("sa", &astk, &bstk);
-		else if ((peek(bstk) < peek(bstk->next)))
-			poperate("sb", &astk, &bstk);
-		else if (peek(astk) < peek(bstk))
-			poperate("pb", &astk, &bstk);
-		else if (peek(astk) > peek(bstk))
-			poperate("ra", &astk, &bstk);
-		if (ft_lstlen(astk) == 10)
-			exit(0);
-	}
+	small = find_smallest(astk);
+	big = find_biggest(astk);
+	while (ft_lstlen(astk) > 2)
+		poperate("pb", &astk, &bstk);
 	while (ft_lstlen(bstk))
 	{
-		poperate("pa", &astk, &bstk);
-		if (peek(astk) > peek(astk->next))
-			poperate("ra", &astk, &bstk);
+		if (allsmaller(astk, peek(bstk)) && peek(astk) == small)
+			poperate("pa", &astk, &bstk);
+		if (allbigger(astk, peek(bstk)) && peek(astk) == big)
+			poperate("pa", &astk, &bstk);
 	}
 }
-
-/*
-**	if (ft_lstlen(astk) < 50)
-**		sort_big(astk);
-**	else
-**		sort_big(astk);
-*/
 
 void	pick_sort(t_list *astk)
 {

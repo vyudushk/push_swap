@@ -18,6 +18,7 @@
 int		find_biggest(t_list *stk);
 int		find_smallest(t_list *stk);
 int		peek(t_list *stk);
+int		peek_last(t_list *stk);
 
 void	operate(char *cmd, t_list **astk, t_list **bstk);
 void	poperate(char *cmd, t_list **astk, t_list **bstk);
