@@ -86,16 +86,22 @@ void	sort_big(t_list *astk)
 	int		big;
 
 	bstk = 0;
-	small = find_smallest(astk);
-	big = find_biggest(astk);
 	while (ft_lstlen(astk) > 2)
 		poperate("pb", &astk, &bstk);
 	while (ft_lstlen(bstk))
 	{
-		if (allsmaller(astk, peek(bstk)) && peek(astk) == small)
+		if (peek(bstk) < peek(astk) && peek(bstk) > peek_last(astk))
 			poperate("pa", &astk, &bstk);
-		if (allbigger(astk, peek(bstk)) && peek(astk) == big)
+		else if (peek(bstk) < find_smallest(astk))
+		{
+			while (peek(astk) != find_smallest(astk))
+				poperate("ra", &astk, &bstk);
 			poperate("pa", &astk, &bstk);
+		}
+		else if (peek(bstk) > peek(astk))
+			poperate("ra", &astk, &bstk);
+		else if (peek(bstk) < peek(astk))
+			poperate("ra", &astk, &bstk);
 	}
 }
 
