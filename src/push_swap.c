@@ -79,35 +79,31 @@ int		allsmaller(t_list *stk, int b)
 	return (1);
 }
 
-void	sort_big(t_list *astk)
+int		find_avg(t_list *stk)
 {
-	t_list	*bstk;
-	int		small;
-	int		big;
+	int	len;
+	int	total;
 
-	bstk = 0;
-	while (ft_lstlen(astk) > 2)
-		poperate("pb", &astk, &bstk);
-	while (ft_lstlen(bstk))
+	len = ft_lstlen(stk);
+	total = 0;
+	while (stk)
 	{
-		if (peek(bstk) < peek(astk) && peek(bstk) > peek_last(astk))
-			poperate("pa", &astk, &bstk);
-		else if (peek(bstk) < find_smallest(astk))
-		{
-			while (peek(astk) != find_smallest(astk))
-				poperate("ra", &astk, &bstk);
-			poperate("pa", &astk, &bstk);
-		}
-		else if (peek(bstk) > peek(astk))
-			poperate("ra", &astk, &bstk);
-		else if (peek(bstk) < peek(astk))
-			poperate("ra", &astk, &bstk);
+		total += peek(stk);
+		stk = stk->next;
 	}
+	return (total / len);
+}
+
+void	sort_big(t_list *astk, t_list *bstk)
+{
+	int		avg;
+
+	avg = find_avg(astk);
 }
 
 void	pick_sort(t_list *astk)
 {
-	sort_big(astk);
+	sort_big(astk, 0);
 }
 
 int		main(int argc, char **argv)
