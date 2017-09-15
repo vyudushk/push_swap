@@ -14,6 +14,21 @@
 #include "libpush.h"
 #include <stdlib.h>
 
+int		position_avg(int i, t_list *stk)
+{
+	int	ret;
+
+	ret = 0;
+	while (stk)
+	{
+		if (peek(stk) <= i)
+			return (ret);
+		stk = stk->next;
+		ret++;
+	}
+	return (ret);
+}
+
 int		position(int i, t_list *stk)
 {
 	int	ret;
@@ -117,7 +132,11 @@ void	sort_big(t_list *astk, t_list *bstk)
 	{
 		if (peek(astk) <= avg)
 			poperate("pb", &astk, &bstk);
-		else if (peek(astk) > avg)
+		else if (position_avg(avg, astk) >= ft_lstlen(astk) / 2)
+			poperate("rra", &astk, &bstk);
+		else if (peek(astk->next) <= avg)
+			poperate("sa", &astk, &bstk);
+		else if (position_avg(avg, astk) < ft_lstlen(astk) / 2)
 			poperate("ra", &astk, &bstk);
 		if (any_below(astk, avg) == 0)
 			avg = find_avg(astk);
@@ -127,8 +146,6 @@ void	sort_big(t_list *astk, t_list *bstk)
 			poperate("pa", &astk, &bstk);
 		else if (position(find_biggest(bstk), bstk) >= ft_lstlen(bstk) / 2)
 			poperate("rrb", &astk, &bstk);
-		else if ((peek(bstk) > peek(bstk->next)))
-			poperate("sb", &astk, &bstk);
 		else if (position(find_biggest(bstk), bstk) < ft_lstlen(bstk) / 2)
 			poperate("rb", &astk, &bstk);
 }
