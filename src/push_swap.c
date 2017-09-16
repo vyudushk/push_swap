@@ -14,14 +14,16 @@
 #include "libpush.h"
 #include <stdlib.h>
 
-int		position_avg(int i, t_list *stk)
+int		position_avg(int i, t_list *stk, int set)
 {
 	int	ret;
 
 	ret = 0;
 	while (stk)
 	{
-		if (peek(stk) <= i)
+		if (set == 0 && peek(stk) <= i)
+			return (ret);
+		else if (peek(stk) >= i)
 			return (ret);
 		stk = stk->next;
 		ret++;
@@ -123,6 +125,17 @@ int		any_below(t_list *stk, int i)
 	return (0);
 }
 
+int		any_above(t_list *stk, int i)
+{
+	while (stk)
+	{
+		if (peek(stk) >= i)
+			return (1);
+		stk = stk->next;
+	}
+	return (0);
+}
+
 void	sort_big(t_list *astk, t_list *bstk)
 {
 	int	avg;
@@ -132,11 +145,29 @@ void	sort_big(t_list *astk, t_list *bstk)
 	{
 		if (peek(astk) <= avg)
 			poperate("pb", &astk, &bstk);
-		else if (position_avg(avg, astk) >= ft_lstlen(astk) / 2)
+		else if (position_avg(avg, astk, 0) >= ft_lstlen(astk) / 2)
 			poperate("rra", &astk, &bstk);
-		else if (peek(astk->next) <= avg)
-			poperate("sa", &astk, &bstk);
-		else if (position_avg(avg, astk) < ft_lstlen(astk) / 2)
+		else if (position_avg(avg, astk, 0) < ft_lstlen(astk) / 2)
+			poperate("ra", &astk, &bstk);
+	}
+	avg = find_avg(bstk);
+	while (any_above(bstk, avg))
+	{
+		if (peek(bstk) >= avg)
+			poperate("pa", &astk, &bstk);
+		else if (position_avg(avg, bstk, 1) >= ft_lstlen(astk) / 2)
+			poperate("rrb", &astk, &bstk);
+		else if (position_avg(avg, bstk, 1) < ft_lstlen(astk) / 2)
+			poperate("rb", &astk, &bstk);
+	}
+	avg = find_avg(astk);
+	while (any_below(astk, avg))
+	{
+		if (peek(astk) <= avg)
+			poperate("pb", &astk, &bstk);
+		else if (position_avg(avg, astk, 0) >= ft_lstlen(astk) / 2)
+			poperate("rra", &astk, &bstk);
+		else if (position_avg(avg, astk, 0) < ft_lstlen(astk) / 2)
 			poperate("ra", &astk, &bstk);
 		if (any_below(astk, avg) == 0)
 			avg = find_avg(astk);
@@ -146,6 +177,8 @@ void	sort_big(t_list *astk, t_list *bstk)
 			poperate("pa", &astk, &bstk);
 		else if (position(find_biggest(bstk), bstk) >= ft_lstlen(bstk) / 2)
 			poperate("rrb", &astk, &bstk);
+		else if (peek(bstk) > peek(bstk->next))
+			poperate("sb", &astk, &bstk);
 		else if (position(find_biggest(bstk), bstk) < ft_lstlen(bstk) / 2)
 			poperate("rb", &astk, &bstk);
 }
