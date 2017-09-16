@@ -155,9 +155,9 @@ void	sort_big(t_list *astk, t_list *bstk)
 	{
 		if (peek(bstk) >= avg)
 			poperate("pa", &astk, &bstk);
-		else if (position_avg(avg, bstk, 1) >= ft_lstlen(astk) / 2)
+		else if (position_avg(avg, bstk, 1) >= (ft_lstlen(bstk) / 2))
 			poperate("rrb", &astk, &bstk);
-		else if (position_avg(avg, bstk, 1) < ft_lstlen(astk) / 2)
+		else if (position_avg(avg, bstk, 1) < (ft_lstlen(bstk) / 2))
 			poperate("rb", &astk, &bstk);
 	}
 	avg = find_avg(astk);
@@ -177,8 +177,6 @@ void	sort_big(t_list *astk, t_list *bstk)
 			poperate("pa", &astk, &bstk);
 		else if (position(find_biggest(bstk), bstk) >= ft_lstlen(bstk) / 2)
 			poperate("rrb", &astk, &bstk);
-		else if (peek(bstk) > peek(bstk->next))
-			poperate("sb", &astk, &bstk);
 		else if (position(find_biggest(bstk), bstk) < ft_lstlen(bstk) / 2)
 			poperate("rb", &astk, &bstk);
 }
