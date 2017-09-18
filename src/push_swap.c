@@ -172,13 +172,22 @@ void	sort_big(t_list *astk, t_list *bstk)
 		if (any_below(astk, avg) == 0)
 			avg = find_avg(astk);
 	}
-	while (ft_lstlen(bstk))
+	while (ft_lstlen(bstk) && ft_lstlen(astk) == 0)
 		if (peek(bstk) == find_biggest(bstk))
 			poperate("pa", &astk, &bstk);
 		else if (position(find_biggest(bstk), bstk) >= ft_lstlen(bstk) / 2)
 			poperate("rrb", &astk, &bstk);
 		else if (position(find_biggest(bstk), bstk) < ft_lstlen(bstk) / 2)
 			poperate("rb", &astk, &bstk);
+	while (ft_lstlen(bstk))
+	{
+		if (peek(bstk) < peek(astk))
+			poperate("pa", &astk, &bstk);
+		else if (peek(bstk) > peek(astk))
+			poperate("ra", &astk, &bstk);
+		while (ft_lstlen(bstk) && peek_last(astk) < peek(astk) && peek_last(astk) > peek(bstk))
+			poperate("rra", &astk, &bstk);
+	}
 }
 
 void	pick_sort(t_list *astk)
