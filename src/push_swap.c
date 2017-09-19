@@ -156,11 +156,11 @@ int	soft_end_test(t_list *astk, t_list *bstk)
 	{
 		ret++;
 		if (peek(bstk) == find_biggest(bstk))
-			poperate("pa", &astk, &bstk);
+			operate("pa", &astk, &bstk);
 		else if (position(find_biggest(bstk), bstk) >= ft_lstlen(bstk) / 2)
-			poperate("rrb", &astk, &bstk);
+			operate("rrb", &astk, &bstk);
 		else if (position(find_biggest(bstk), bstk) < ft_lstlen(bstk) / 2)
-			poperate("rb", &astk, &bstk);
+			operate("rb", &astk, &bstk);
 	}
 	return (ret);
 }
@@ -170,17 +170,17 @@ void	hard_end(t_list *astk, t_list *bstk)
 	while (ft_lstlen(bstk))
 	{
 		if (peek(bstk) < peek(astk))
-			operate("pa", &astk, &bstk);
+			poperate("pa", &astk, &bstk);
 		else if (peek(bstk) > peek(astk))
-			operate("ra", &astk, &bstk);
+			poperate("ra", &astk, &bstk);
 		while (ft_lstlen(bstk) && peek_last(astk) < peek(astk) && peek_last(astk) > peek(bstk))
 		{
 			if (peek_last(astk) )
-			operate("rra", &astk, &bstk);
+			poperate("rra", &astk, &bstk);
 		}
 	}
 	while (peek(astk) != find_smallest(astk))
-			operate("rra", &astk, &bstk);
+			poperate("rra", &astk, &bstk);
 }
 
 int	hard_end_test(t_list *astk, t_list *bstk)
@@ -209,8 +209,6 @@ int	hard_end_test(t_list *astk, t_list *bstk)
 	}
 	return (ret);
 }
-
-
 
 t_list	*copy_lst(t_list *lst)
 {
