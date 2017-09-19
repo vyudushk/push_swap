@@ -140,7 +140,11 @@ void	soft_end(t_list *astk, t_list *bstk)
 {
 	while (ft_lstlen(bstk))
 		if (peek(bstk) == find_biggest(bstk))
+		{
 			poperate("pa", &astk, &bstk);
+			if (peek(astk) > peek(astk->next))
+				poperate("sa", &astk, &bstk);
+		}
 		else if (position(find_biggest(bstk), bstk) >= ft_lstlen(bstk) / 2)
 			poperate("rrb", &astk, &bstk);
 		else if (position(find_biggest(bstk), bstk) < ft_lstlen(bstk) / 2)
@@ -156,7 +160,14 @@ int	soft_end_test(t_list *astk, t_list *bstk)
 	{
 		ret++;
 		if (peek(bstk) == find_biggest(bstk))
+		{
 			operate("pa", &astk, &bstk);
+			if (peek(astk) > peek(astk->next))
+			{
+				operate("sa", &astk, &bstk);
+				ret++;
+			}
+		}
 		else if (position(find_biggest(bstk), bstk) >= ft_lstlen(bstk) / 2)
 			operate("rrb", &astk, &bstk);
 		else if (position(find_biggest(bstk), bstk) < ft_lstlen(bstk) / 2)
