@@ -136,6 +136,115 @@ int		any_above(t_list *stk, int i)
 	return (0);
 }
 
+void	soft_end(t_list *astk, t_list *bstk)
+{
+	while (ft_lstlen(bstk))
+		if (peek(bstk) == find_biggest(bstk))
+			poperate("pa", &astk, &bstk);
+		else if (position(find_biggest(bstk), bstk) >= ft_lstlen(bstk) / 2)
+			poperate("rrb", &astk, &bstk);
+		else if (position(find_biggest(bstk), bstk) < ft_lstlen(bstk) / 2)
+			poperate("rb", &astk, &bstk);
+}
+
+int	soft_end_test(t_list *astk, t_list *bstk)
+{
+	int	ret;
+
+	ret = 0;
+	while (ft_lstlen(bstk))
+	{
+		ret++;
+		if (peek(bstk) == find_biggest(bstk))
+			poperate("pa", &astk, &bstk);
+		else if (position(find_biggest(bstk), bstk) >= ft_lstlen(bstk) / 2)
+			poperate("rrb", &astk, &bstk);
+		else if (position(find_biggest(bstk), bstk) < ft_lstlen(bstk) / 2)
+			poperate("rb", &astk, &bstk);
+	}
+	return (ret);
+}
+
+void	hard_end(t_list *astk, t_list *bstk)
+{
+	while (ft_lstlen(bstk))
+	{
+		if (peek(bstk) < peek(astk))
+			operate("pa", &astk, &bstk);
+		else if (peek(bstk) > peek(astk))
+			operate("ra", &astk, &bstk);
+		while (ft_lstlen(bstk) && peek_last(astk) < peek(astk) && peek_last(astk) > peek(bstk))
+		{
+			if (peek_last(astk) )
+			operate("rra", &astk, &bstk);
+		}
+	}
+	while (peek(astk) != find_smallest(astk))
+			operate("rra", &astk, &bstk);
+}
+
+int	hard_end_test(t_list *astk, t_list *bstk)
+{
+	int	ret;
+
+	ret = 0;
+	while (ft_lstlen(bstk))
+	{
+		if (peek(bstk) < peek(astk))
+			operate("pa", &astk, &bstk);
+		else if (peek(bstk) > peek(astk))
+			operate("ra", &astk, &bstk);
+		ret++;
+		while (ft_lstlen(bstk) && peek_last(astk) < peek(astk) && peek_last(astk) > peek(bstk))
+		{
+			if (peek_last(astk))
+				operate("rra", &astk, &bstk);
+			ret++;
+		}
+	}
+	while (peek(astk) != find_smallest(astk))
+	{
+			operate("rra", &astk, &bstk);
+			ret++;
+	}
+	return (ret);
+}
+
+t_list	*copy_list(t_list *lst)
+{
+	t_list *ret;
+
+	while (lst)
+	{
+		ft_lstaddend(&ret, ft_lstnew(lst->content, sizeof(int)));
+		lst = lst->next;
+	}
+	return (ret);
+}
+
+void	finish_sort(t_list *astk, t_list *bstk)
+{
+	t_list	*acpy;
+	t_list	*bcpy;
+	int		hard;
+	int		soft;
+
+	acpy = copy_list(astk);
+	bcpy = copy_list(bstk);
+	hard = hard_end_test(acpy, bcpy);
+	ft_lstdel(&acpy, del);
+	ft_lstdel(&bcpy, del);
+	acpy = copy_list(astk);
+	bcpy = copy_list(bstk);
+	soft = soft_end_test(acpy, bcpy);
+	ft_lstdel(&acpy, del);
+	ft_lstdel(&bcpy, del);
+	if (hard < soft)
+		hard_end(astk, bstk);
+	else
+		soft_end(astk, bstk);
+}
+
 void	sort_big(t_list *astk, t_list *bstk)
 {
 	int	avg;
@@ -181,20 +290,7 @@ void	sort_big(t_list *astk, t_list *bstk)
 			poperate("rrb", &astk, &bstk);
 		else if (position(find_biggest(bstk), bstk) < ft_lstlen(bstk) / 2)
 			poperate("rb", &astk, &bstk);
-	while (ft_lstlen(bstk))
-	{
-		if (peek(bstk) < peek(astk))
-			poperate("pa", &astk, &bstk);
-		else if (peek(bstk) > peek(astk))
-			poperate("ra", &astk, &bstk);
-		while (ft_lstlen(bstk) && peek_last(astk) < peek(astk) && peek_last(astk) > peek(bstk))
-		{
-			if (peek_last(astk) )
-			poperate("rra", &astk, &bstk);
-		}
-	}
-	while (peek(astk) != find_smallest(astk))
-			poperate("rra", &astk, &bstk);
+	finish_sort(astk, bstk);
 }
 
 void	pick_sort(t_list *astk)
