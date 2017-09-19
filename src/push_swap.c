@@ -210,15 +210,15 @@ int	hard_end_test(t_list *astk, t_list *bstk)
 	return (ret);
 }
 
-t_list	*copy_list(t_list *lst)
+
+
+t_list	*copy_lst(t_list *lst)
 {
 	t_list *ret;
 
-	while (lst)
-	{
-		ft_lstaddend(&ret, ft_lstnew(lst->content, sizeof(int)));
-		lst = lst->next;
-	}
+	ret = ft_lstnew(0, 0);
+	ret->content = lst->content;
+	ret->content_size = lst->content_size;
 	return (ret);
 }
 
@@ -229,16 +229,12 @@ void	finish_sort(t_list *astk, t_list *bstk)
 	int		hard;
 	int		soft;
 
-	acpy = copy_list(astk);
-	bcpy = copy_list(bstk);
+	acpy = ft_lstmap(astk, copy_lst);
+	bcpy = ft_lstmap(bstk, copy_lst);
 	hard = hard_end_test(acpy, bcpy);
-	ft_lstdel(&acpy, del);
-	ft_lstdel(&bcpy, del);
-	acpy = copy_list(astk);
-	bcpy = copy_list(bstk);
+	acpy = ft_lstmap(astk, copy_lst);
+	bcpy = ft_lstmap(bstk, copy_lst);
 	soft = soft_end_test(acpy, bcpy);
-	ft_lstdel(&acpy, del);
-	ft_lstdel(&bcpy, del);
 	if (hard < soft)
 		hard_end(astk, bstk);
 	else
