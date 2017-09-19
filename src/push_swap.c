@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 19:43:29 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/08/13 19:49:18 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/09/18 00:58:32 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,8 @@ void	sort_big(t_list *astk, t_list *bstk)
 	avg = find_avg(astk);
 	while (any_below(astk, avg))
 	{
+		if (is_sort_push(astk))
+			break;
 		if (peek(astk) <= avg)
 			poperate("pb", &astk, &bstk);
 		else if (position_avg(avg, astk, 0) >= ft_lstlen(astk) / 2)
@@ -186,8 +188,13 @@ void	sort_big(t_list *astk, t_list *bstk)
 		else if (peek(bstk) > peek(astk))
 			poperate("ra", &astk, &bstk);
 		while (ft_lstlen(bstk) && peek_last(astk) < peek(astk) && peek_last(astk) > peek(bstk))
+		{
+			if (peek_last(astk) )
 			poperate("rra", &astk, &bstk);
+		}
 	}
+	while (peek(astk) != find_smallest(astk))
+			poperate("rra", &astk, &bstk);
 }
 
 void	pick_sort(t_list *astk)
