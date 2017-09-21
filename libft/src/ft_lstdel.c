@@ -6,14 +6,14 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 14:40:32 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/24 18:07:42 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/09/21 13:47:57 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-void   del(void *point, size_t n)
+void	del(void *point, size_t n)
 {
 	ft_bzero(point, n);
 	free(point);
