@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 19:43:29 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/07/24 15:56:37 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/09/21 13:45:00 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,22 @@ int		main(int argc, char **argv)
 	char	*line;
 	int		len;
 
-	lst = arg_to_lst(argc, argv);
 	stack = 0;
-	debug(lst, stack);
+	if (ft_strcmp(argv[1], "-v") == 0)
+	{
+		lst = arg_to_lst(argc - 1, argv + 1);
+		debug(lst, stack);
+	}
+	else
+		lst = arg_to_lst(argc, argv);
 	len = ft_lstlen(lst);
 	while (get_next_line(0, &line))
 	{
 		if (isvalid(line) == 0)
 			leave();
 		operate(line, &lst, &stack);
-		debug(lst, stack);
+		if (ft_strcmp(argv[1], "-v") == 0)
+			debug(lst, stack);
 		free(line);
 	}
 	is_sort(lst, len);
