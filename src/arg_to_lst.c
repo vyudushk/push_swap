@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/24 15:57:41 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/08/13 19:34:56 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/09/25 14:14:05 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 
 int		isnumeric_str(char *str)
 {
-	if (*str == '-')
-		str++;
 	while (*str)
 	{
+		if (*str == '-')
+			str++;
 		if ((*str > '9' || *str < '0') && *str != ' ')
 			return (0);
 		str++;
@@ -41,7 +41,7 @@ t_list	*str_to_lst(char *str)
 			ft_atol(str) > 2147483647 || ft_atol(str) < -2147483648)
 			leave();
 		ft_lstaddend(&lst, ft_lstnew(&tmp, sizeof(int)));
-		while (*str >= '0' && *str <= '9')
+		while ((*str >= '0' && *str <= '9') || (*str == '-'))
 			str++;
 		while (*str == ' ')
 			str++;
