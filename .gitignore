@@ -4,5 +4,4 @@ push_swap
 build
 libft/libft.a
 *.swp
-gen.py
 hold.txt
